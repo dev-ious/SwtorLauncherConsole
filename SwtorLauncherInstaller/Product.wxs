@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" UpgradeCode="{5BFB4B23-767C-459D-82E8-58F772C159F6}" Version="1.0.0.0" Language="1033" Name="Swtor Launcher Console" Manufacturer="Crimson Shadow Legion">
+    <Package InstallerVersion="300" Compressed="yes"/>
+    <Media Id="1" Cabinet="SwtorLauncherConsole.cab" EmbedCab="yes" />
+    <Icon Id="swtorLauncher.ico" SourceFile="swtorLauncher.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="swtorLauncher.ico" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="APPLICATIONROOTDIRECTORY" Name="Swtor Launcher Console"/>
+      </Directory>
+      <!-- Step 1: Define the directory structure -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Swtor Launcher Console"/>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+      <Component Id="SwtorLauncherConsole.exe" Guid="{5BFB4B23-767C-459D-82E8-58F772C159F6}">
+        <File Id="SwtorLauncherConsole.exe" Source="..\SwtorLauncherConsole\bin\Release\SwtorLauncherConsole.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="SwtorLauncherConsole.exe.config" Source="..\SwtorLauncherConsole\bin\Release\SwtorLauncherConsole.exe.config" Checksum="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <!-- Step 2: Add the shortcut to your installer package -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="{985DC6F4-96D8-4DBA-9D7B-8D9B859D02D5}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+             Name="Swtor Launcher Console"
+           Description="My Application Description"
+            Target="[#SwtorLauncherConsole.exe]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="MainApplication" Title="Main Application" Level="1">
+      <ComponentRef Id="SwtorLauncherConsole.exe" />
+      <!-- Step 3: Tell WiX to install the shortcut -->
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+  </Product>
+</Wix>
