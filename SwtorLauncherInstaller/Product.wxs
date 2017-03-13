@@ -18,7 +18,6 @@
     <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
       <Component Id="SwtorLauncherConsole.exe" Guid="{5BFB4B23-767C-459D-82E8-58F772C159F6}">
         <File Id="SwtorLauncherConsole.exe" Source="..\SwtorLauncherConsole\bin\Release\SwtorLauncherConsole.exe" KeyPath="yes" Checksum="yes"/>
-        <File Id="SwtorLauncherConsole.exe.config" Source="..\SwtorLauncherConsole\bin\Release\SwtorLauncherConsole.exe.config" Checksum="yes"/>
       </Component>
     </DirectoryRef>
 

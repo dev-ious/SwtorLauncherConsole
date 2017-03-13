@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwtorLauncherConsole
 {
@@ -15,20 +11,20 @@ namespace SwtorLauncherConsole
         {
             var mumbleStartInfo = new ProcessStartInfo
             {
-                WorkingDirectory = ConfigurationManager.AppSettings["MumbleWorkingDir"],
-                FileName = ConfigurationManager.AppSettings["MumbleFileName"]
+                WorkingDirectory = Directory.Exists("C:\\Program Files (x86)\\Mumble") ? "C:\\Program Files (x86)\\Mumble" : "D:\\Program Files (x86)\\Mumble",
+                FileName = "mumble.exe"
             };
 
             var starParseStartInfo = new ProcessStartInfo
             {
-                WorkingDirectory = ConfigurationManager.AppSettings["StarParseWorkingDir"],
-                FileName = ConfigurationManager.AppSettings["StarParseFileName"]
+                WorkingDirectory = Directory.Exists($"C:\\Users\\{System.Environment.UserName}\\AppData\\Local\\StarParse") ? $"C:\\Users\\{System.Environment.UserName}\\AppData\\Local\\StarParse" : $"D:\\Users\\{System.Environment.UserName}\\AppData\\Local\\StarParse",
+                FileName = "starparse.exe"
             };
 
             var swtorStartInfo = new ProcessStartInfo
             {
-                WorkingDirectory = ConfigurationManager.AppSettings["SwtorWorkingDir"],
-                FileName = ConfigurationManager.AppSettings["SwtorFileName"]
+                WorkingDirectory = Directory.Exists("C:\\Program Files (x86)\\Star Wars-The Old Republic") ? "C:\\Program Files (x86)\\Star Wars-The Old Republic" : "D:\\Program Files (x86)\\Star Wars-The Old Republic",
+                FileName = "launcher.exe"
             };
 
             var processList = new List<ProcessStartInfo>
@@ -41,7 +37,7 @@ namespace SwtorLauncherConsole
             processList.ForEach(psi =>
             {
                 var process = new Process {StartInfo = psi};
-                if(!process.Start());
+                if(!process.Start())
                     Console.WriteLine($"Failed to start {psi.FileName}");
             });
         }
