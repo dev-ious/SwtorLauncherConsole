@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace SwtorLauncherConsole
 {
@@ -37,9 +38,26 @@ namespace SwtorLauncherConsole
             processList.ForEach(psi =>
             {
                 var process = new Process {StartInfo = psi};
-                if(!process.Start())
-                    Console.WriteLine($"Failed to start {psi.FileName}");
+                try
+                {
+                    if (IsProcessOpen(psi.FileName))
+                    {
+                        Console.WriteLine($"{psi.FileName} is already running, skipping launch of it.");
+                    }
+                    else if(!process.Start())
+                        Console.WriteLine($"Failed to start {psi.FileName}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Something unexpected has happened. Please paste the output of this window (use ctrl + s to save the output to a file first) in the issue area of github for this project. {e}");
+                }
             });
+        }
+
+        public static bool IsProcessOpen(string name)
+        {
+            name = name.Split(char.Parse(".")).FirstOrDefault();
+            return Process.GetProcesses().Any(clsProcess => name != null && clsProcess.ProcessName.ToLower().Contains(name));
         }
     }
 }

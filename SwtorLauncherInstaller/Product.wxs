@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" UpgradeCode="{5BFB4B23-767C-459D-82E8-58F772C159F6}" Version="1.0.0.2" Language="1033" Name="Swtor Launcher Console" Manufacturer="Crimson Shadow Legion">
+  <Product Id="*" UpgradeCode="{5BFB4B23-767C-459D-82E8-58F772C159F6}" Version="1.0.1.0" Language="1033" Name="Swtor Launcher Console" Manufacturer="Crimson Shadow Legion">
     <Package InstallerVersion="300" Compressed="yes"/>
     <Media Id="1" Cabinet="SwtorLauncherConsole.cab" EmbedCab="yes" />
     <Icon Id="swtorLauncher.ico" SourceFile="swtorLauncher.ico"/>
